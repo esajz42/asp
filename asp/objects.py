@@ -31,11 +31,7 @@ class Point(object):
         Point
             Instantiation of Point.
         """
-        self._xyz = xyz
-
-    @property
-    def xyz(self):
-        return self._xyz
+        self.xyz = np.asarray(xyz)
 
     def shiftby(self, xyz):
         """Shifts Point object by specified distances.
@@ -97,12 +93,8 @@ class Vector(Point):
         Vector
             Instantiation of Vector.
         """
-        self._dir = dir
+        self.dir = np.asarray(dir)
         super(Vector).__init__(xyz)
-
-    @property
-    def dir(self):
-        return self._dir
 
 
 class Ray(Vector):
@@ -138,9 +130,5 @@ class Ray(Vector):
         Ray
             Instantiation of Ray.
         """
-        self._value = value
+        self.value = np.asarray(value)
         super(Ray).__init__(xyz, dir)
-
-    @property
-    def value(self):
-        return self._value
