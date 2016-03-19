@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class Point(object):
     """
     Representing a point in R3 space.
@@ -71,6 +72,8 @@ class Vector(Point):
     """
     Represents a vector in R3.
 
+    A Vector is a Point with an associated direction.
+
     Attributes
     ----------
     xyz : array_like
@@ -100,3 +103,44 @@ class Vector(Point):
     @property
     def dir(self):
         return self._dir
+
+
+class Ray(Vector):
+    """
+    Represents a ray in R3.
+
+    A Ray is a Vector with an associated value.
+
+    Attributes
+    ----------
+    xyz : array_like
+        Three-element array_like specifying coordinates in R3.
+    dir : array_like
+        Three-element array_like specifying vector direction.
+    value : float
+        Value or weight assigned to Ray.
+    """
+
+    def __init__(self, xyz, dir, value=0.):
+        """Initializes a Ray object.
+
+        Parameters
+        ----------
+        xyz : array_like
+            Three-element array_like specifying coordinates in R3.
+        dir : array_like
+            Three-element array_like specifying vector direction.
+        value : float, optional
+            Value or weight assigned to Ray. Default is 0.
+
+        Returns
+        -------
+        Ray
+            Instantiation of Ray.
+        """
+        self._value = value
+        super(Ray).__init__(xyz, dir)
+
+    @property
+    def value(self):
+        return self._value
