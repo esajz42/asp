@@ -25,7 +25,11 @@ class Point(object):
         xyz : array_like
             Three-element array_like specifying coordinates in R3.
         """
-        self.xyz = xyz
+        self._xyz = xyz
+
+    @property
+    def xyz(self):
+        return self._xyz
 
     def shiftby(self, xyz):
         """Shifts Point object by specified distances.
