@@ -31,7 +31,7 @@ class Point(object):
         Point
             Instantiation of Point.
         """
-        self.xyz = np.asarray(xyz)
+        self.xyz = np.asarray(xyz).squeeze()
 
     def shiftby(self, xyz):
         """Shifts Point object by specified distances.
@@ -45,7 +45,7 @@ class Point(object):
         -------
         self : Updated Point object.
         """
-        self.xyz += xyz
+        self.xyz += np.asarray(xyz).squeeze()
         return self
 
     def shiftto(self, xyz):
@@ -60,7 +60,7 @@ class Point(object):
         -------
         self : Updated Point object.
         """
-        self.xyz = xyz
+        self.xyz = np.asarray(xyz).squeeze()
         return self
 
 
@@ -76,6 +76,13 @@ class Vector(Point):
         Three-element array_like specifying coordinates in R3.
     dir : array_like
         Three-element array_like specifying vector direction.
+
+    Methods
+    -------
+    shiftby(xyz=xyz)
+        Shifts Vector by specified distances.
+    shiftto(xyz=xyz)
+        Shifts Vector to specified location.
     """
 
     def __init__(self, xyz, dir):
@@ -93,7 +100,7 @@ class Vector(Point):
         Vector
             Instantiation of Vector.
         """
-        self.dir = np.asarray(dir)
+        self.dir = np.asarray(dir).squeeze()
         super(Vector).__init__(xyz)
 
 
@@ -111,6 +118,13 @@ class Ray(Vector):
         Three-element array_like specifying vector direction.
     value : float
         Value or weight assigned to Ray.
+
+    Methods
+    -------
+    shiftby(xyz=xyz)
+        Shifts Ray by specified distances.
+    shiftto(xyz=xyz)
+        Shifts Ray to specified location.
     """
 
     def __init__(self, xyz, dir, value=0.):
@@ -130,5 +144,5 @@ class Ray(Vector):
         Ray
             Instantiation of Ray.
         """
-        self.value = np.asarray(value)
+        self.value = np.asarray(value).squeeze()
         super(Ray).__init__(xyz, dir)
