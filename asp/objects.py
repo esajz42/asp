@@ -1,6 +1,6 @@
 import numpy as np
 
-class point(object):
+class Point(object):
     """
     Representing a point in R3 space.
 
@@ -8,10 +8,17 @@ class point(object):
     ----------
     xyz : array_like
         Three-element array_like specifying coordinates in R3.
+
+    Methods
+    -------
+    shiftby(xyz=xyz)
+        Shifts Point by specified distances.
+    shiftto(xyz=xyz)
+        Shifts Point to specified location.
     """
     
     def __init__(self, xyz):
-        """Initializes point object.
+        """Initializes Point object.
 
         Parameters
         ----------
@@ -19,3 +26,33 @@ class point(object):
             Three-element array_like specifying coordinates in R3.
         """
         self.xyz = xyz
+
+    def shiftby(self, xyz):
+        """Shifts Point object by specified distances.
+
+        Parameters
+        ----------
+        xyz : array_like
+            Distances to shift Point by along each axis.
+
+        Returns
+        -------
+        self : Updated Point object.
+        """
+        self.xyz += xyz
+        return self
+
+    def shiftto(self, xyz):
+        """Shifts Point object to specified position.
+
+        Parameters
+        ----------
+        xyz : array_like
+            New position xyz to set Point to.
+
+        Returns
+        -------
+        self : Updated Point object.
+        """
+        self.xyz = xyz
+        return self
