@@ -146,3 +146,18 @@ class Ray(Vector):
         """
         self.value = np.asarray(value).squeeze()
         super(Ray).__init__(xyz, dir)
+
+
+class Plane(object):
+    """
+    Plane defined by three or more Points.
+
+    Attributes
+    ----------
+    points : iter[Point]
+        Iterable of at least three Points.
+    """
+
+    def __init__(self, points):
+        """Initializes Plane object."""
+        self.points = list(points)
