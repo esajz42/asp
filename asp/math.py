@@ -80,7 +80,13 @@ def normal(plane):
 
     Returns 
     --------
-    normal : Vector
+    Vector
         Normal Vector of parameter Plane.
     """
-    v1 = Vector(
+
+    # Compute two in-plane vectors
+    v1 = plane.points[0].xyz - plane.points[1].xyz
+    v2 = plane.points[0].xyz - plane.points[2].xyz
+
+    # Cross product of two in-plane vectors gives normal vector
+    return Vector(np.cross(v1, v2))
