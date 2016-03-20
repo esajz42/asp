@@ -115,7 +115,7 @@ def plane_coefficients(plane):
     .. [1] http://tutorial.math.lamar.edu/Classes/CalcIII/EqnsOfPlanes.aspx 
     """
     abc = normal(plane)
-    d = np.dot(-plane.points[0].xyz, abc.xyz)
+    d = np.dot(abc.xyz, plane.points[0].xyz)
     return abc.xyz.append(d) 
 
 
@@ -132,10 +132,27 @@ def intersection(vector, plane):
     Returns
     -------
     Point
-        Intersection Point of ray and vector.
+        Intersection Point of Plane and Vector.
 
     References 
     -----------
     .. [1] https://www.khanacademy.org/partner-content/pixar/rendering/rendering-2/v/rendering-9
+    .. [2] Curless, B., Ray-triangle intersection, 2006
     """
+
+    # Plane equation a, b, c (normal vector) and d coefficients
     plane_coeffs = plane_coefficients(plane)
+    abc = plane_coeffs[:3]
+    d = plane_coeffs[3]
+
+    # Vector origin 
+    p = vector.xyz
+
+    # Compute distance along vector, t
+    t = (d - np.dot(abc, p)) / (abc, d)
+
+    # Compute intersection using t
+    q = p + t * d
+
+    return Point(q)
+
