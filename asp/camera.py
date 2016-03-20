@@ -18,6 +18,7 @@ class camera(object):
     """
 
     def __init__(self, orient, focal, array_size, pixel_size):
+        self.orient = orient
         self.focal = focal
         self.array_size = array_size
         self.pixel_size = pixel_size
