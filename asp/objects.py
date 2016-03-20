@@ -161,3 +161,20 @@ class Plane(object):
     def __init__(self, points):
         """Initializes Plane object."""
         self.points = list(points)
+
+
+class Triangle(Plane):
+    """
+    Triangular facet defined by three points.
+
+    Attributes
+    ----------
+    points : iter[Point], len(3)
+        Iterable of three unique Points.
+    """
+    
+    def __init__(self, points):
+        if len(points) != 3:
+            raise ValueError("Triangle objects are defined by exactly 3 points.")
+
+        super(Triangle).__init__(points)
