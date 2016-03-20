@@ -53,7 +53,7 @@ def sub(points):
     return Point(diff)   
 
 
-def divides(points):
+def div(points):
     """Sequentially subtracts iterable of Points.
     
     Parameters
@@ -114,7 +114,7 @@ def plane_coefficients(plane):
     .. [1] http://tutorial.math.lamar.edu/Classes/CalcIII/EqnsOfPlanes.aspx 
     """
     abc = normal(plane)
-    d = np.dot(abc.xyz, sub([plane.points[0], plane.points[1]]).xyz)
+    d = np.dot(-plane.points[0].xyz, abc.xyz)
     return abc.xyz.append(d) 
 
 
