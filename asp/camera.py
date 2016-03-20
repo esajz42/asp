@@ -7,6 +7,8 @@ class camera(object):
 
     Attributes
     ----------
+    orient : Vector
+        Defines camera orientation: location and pointing direction
     focal : float, [meters]
         Camera system focal length. 
     array_size : tuple, (2,), [pixels]
@@ -15,7 +17,7 @@ class camera(object):
         Size of each pixel along x and y dimensions.
     """
 
-    def __init__(self, focal, array_size, pixel_size):
+    def __init__(self, orient, focal, array_size, pixel_size):
         self.focal = focal
         self.array_size = array_size
         self.pixel_size = pixel_size
