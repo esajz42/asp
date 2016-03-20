@@ -82,6 +82,10 @@ def normal(plane):
     --------
     Vector
         Normal Vector of parameter Plane.
+
+    References 
+    ----------
+    .. [1] http://tutorial.math.lamar.edu/Classes/CalcIII/EqnsOfPlanes.aspx 
     """
 
     # Compute two in-plane vectors
@@ -90,3 +94,44 @@ def normal(plane):
 
     # Cross product of two in-plane vectors gives normal vector
     return Vector(np.cross(v1, v2))
+
+
+def plane_coefficients(plane):
+    """Computes coefficients of scalar plane equation. 
+
+    Parameters
+    ----------
+    plane : Plane
+        A Plane object. 
+
+    Returns
+    -------
+    array
+        Coefficients of scalar plane equation.
+
+    References 
+    ----------
+    .. [1] http://tutorial.math.lamar.edu/Classes/CalcIII/EqnsOfPlanes.aspx 
+    """
+    abc = normal(plane)
+    d = np.dot(abc.xyz, sub([plane.points[0], plane.points[1]]).xyz)
+    return abc.xyz.append(d) 
+
+
+def intersection(vector, plane):
+    """Computes the intersection Point of a Vector and Plane
+
+    Parameters 
+    ----------
+    vector : Vector
+        Vector to intersect with plane.
+    plane : Plane
+        Plane for Vector to intersect.
+
+    Returns
+    -------
+    Point
+        Intersection Point of ray and vector.
+    """
+    norm_vec = normal(plane)     
+    plane_coeff = 
