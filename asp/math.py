@@ -71,7 +71,7 @@ def div(points):
 
 
 def normal(plane):
-    """Computes the normal Vector of a Plane.
+    """Computes the normal unit Vector of a Plane.
     
     Parameters
     ----------
@@ -81,7 +81,7 @@ def normal(plane):
     Returns 
     --------
     Vector
-        Normal Vector of parameter Plane.
+        Normal unit Vector of parameter Plane.
 
     References 
     ----------
@@ -89,11 +89,12 @@ def normal(plane):
     """
 
     # Compute two in-plane vectors
-    v1 = plane.points[0].xyz - plane.points[1].xyz
-    v2 = plane.points[0].xyz - plane.points[2].xyz
+    v1 = plane.points[1].xyz - plane.points[0].xyz
+    v2 = plane.points[2].xyz - plane.points[0].xyz
 
     # Cross product of two in-plane vectors gives normal vector
-    return Vector(np.cross(v1, v2))
+    norm_vec = np.cross(v1, v2)
+    return Vector(norm_vec / np.linalg.norm(norm_vec))
 
 
 def plane_coefficients(plane):
@@ -132,6 +133,9 @@ def intersection(vector, plane):
     -------
     Point
         Intersection Point of ray and vector.
+
+    References 
+    -----------
+    .. [1] https://www.khanacademy.org/partner-content/pixar/rendering/rendering-2/v/rendering-9
     """
-    norm_vec = normal(plane)     
-    plane_coeff = 
+    plane_coeffs = plane_coefficients(plane)
