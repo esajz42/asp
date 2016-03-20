@@ -156,11 +156,73 @@ class Plane(object):
     ----------
     points : iter[Point]
         Iterable of at least three Points.
+    normal : Vector
+        Unit normal Vector of plane.
+
+    Methods
+    -------
+    get_coefficients()
+        Returns coefficients of scalar plane equation.
     """
 
     def __init__(self, points):
         """Initializes Plane object."""
-        self.points = list(points)
+        self._points = list(points)
+        self._normal = None
+
+    @property
+    def points(self):
+        return self._points
+
+    @property
+    def normal(self):
+        """Computes the normal unit Vector of Plane.
+        
+        Parameters
+        ----------
+        plane : Plane
+            Plane object to compute normal Vector for. 
+        Returns 
+        --------
+        Vector
+            Normal unit Vector of parameter Plane.
+
+        References 
+        ----------
+        .. [1] http://tutorial.math.lamar.edu/Classes/CalcIII/EqnsOfPlanes.aspx 
+        """
+        if self._normal is None:
+
+            # Compute two in-plane vectors
+            v1 = self.points[1].xyz - self.points[0].xyz
+            v2 = self.points[2].xyz - self.points[0].xyz
+
+            # Cross product of two in-plane vectors gives normal vector
+            norm = np.cross(v1, v2)
+            self._normal = Vector(norm / np.linalg.norm(norm))
+
+        return self._normal
+
+
+        def get_coefficients(self):
+            """Computes coefficients of scalar plane equation. 
+
+            Parameters
+            ----------
+            plane : Plane
+                A Plane object. 
+
+            Returns
+            -------
+            array
+                Coefficients of scalar plane equation.
+
+            References 
+            ----------
+            .. [1] http://tutorial.math.lamar.edu/Classes/CalcIII/EqnsOfPlanes.aspx 
+            """
+            d = self.normal.xyz.dot(self.points[0].xyz)
+            return self.normal.xyz.append(d) 
 
 
 class Triangle(Plane):
@@ -169,10 +231,18 @@ class Triangle(Plane):
 
     Attributes
     ----------
-    points : iter[Point], len(3)
-        Iterable of three unique Points.
+    points : iter[Point]
+        Iterable of at least three Points.
+    normal : Vector
+        Unit normal Vector of plane.
+
+    Methods
+    -------
+    get_coefficients()
+        Returns coefficients of scalar plane equation for the Triangle's supporting
+        plane.
     """
-    
+        
     def __init__(self, points):
         if len(points) != 3:
             raise ValueError("Triangle objects are defined by exactly 3 points.")
