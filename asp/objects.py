@@ -248,10 +248,9 @@ class Triangle(Plane):
             raise ValueError("Triangle objects are defined by exactly 3 points.")
 
         super(Triangle).__init__(points)
-import numpy as np
 
 
-class camera(object):
+class Camera(object):
     """
     Camera used to image a scene. 
 
