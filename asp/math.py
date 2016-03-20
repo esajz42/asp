@@ -119,7 +119,7 @@ def plane_coefficients(plane):
     return abc.xyz.append(d) 
 
 
-def intersection(vector, plane):
+def intersect(vector, plane):
     """Computes the intersection Point of a Vector and Plane
 
     Parameters 
