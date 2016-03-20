@@ -156,3 +156,33 @@ def intersect(vector, plane):
 
     return Point(q)
 
+
+def inside(point, triangle):
+    """Checks if a point lies within a triangle or not.
+
+    Parameters
+    ----------
+    point : Point
+        Point in same plane as triangle. 
+    triangle : Triangle
+        Triangle facet.
+
+    Returns
+    -------
+    in : bool
+        True of point is inside triangle, False otherwise.
+
+    References
+    ----------
+    .. [1] https://www.khanacademy.org/partner-content/pixar/rendering/rendering-2/v/rendering-9
+    .. [2] Curless, B., Ray-triangle intersection, 2006
+    """
+    n = triangle.normal
+    c0 = np.cross(sub([triangle.vertices[1], triangle.vertices[0]]),
+                  sub([triangle.vertices[2], triangle.vertices[0]]))
+    c1 = np.cross(sub([triangle.vertices[0], triangle.vertices[1]]),
+                  sub([triangle.vertices[2], triangle.vertices[1]]))
+    c2 = np.cross(sub([triangle.vertices[0], triangle.vertices[2]]),
+                  sub([triangle.vertices[1], triangle.vertices[2]]))
+    return (c0.dot(n) >= 0) and (c1.dot(n) >= 0) and (c2.dot(n) >= 0)
+ 
