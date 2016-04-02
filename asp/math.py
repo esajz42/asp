@@ -136,3 +136,38 @@ def inside(point, triangle):
     c2 = np.cross(sub([triangle.points[0], triangle.points[2]]),
                   sub([triangle.points[1], triangle.points[2]]))
     return (c0.dot(n) >= 0) and (c1.dot(n) >= 0) and (c2.dot(n) >= 0)
+
+
+def rotation_matrix(a, b):
+    """Returns rotation matrix that will rotate vector a onto b.
+
+    Parameters
+    ----------
+    a : Vector
+        A vector in R3
+    b : Vector
+        Vector to rotate a onto. 
+    Returns
+    -------
+    rot : array, (3, 3)
+        Matrix that rotates a onto b.
+
+    References
+    ----------
+    .. [1] http://math.stackexchange.com/questions/180418/calculate-rotation-matrix-to-align-vector-a-to-vector-b-in-3d 
+    """
+    # Make sure a and b vectors are unit
+    a /= np.linalg.norm(a.xyz)
+    b /= np.linalg.norm(b.xyz)
+
+    # Find sin and cos of angle to rotate by
+    v = np.cross(a, b) 
+    s = np.linalg.norm(v)
+    c = np.dot(a, b)
+
+    # Define skew-symmetric cross product of v
+    vx = [[0, -v[2], v[1]], [v[2], 0, -v[0]], [-v[1], v[0], 0]]
+
+    # Construct rotation matrix
+    rot = np.eye(3) + vx + (vx ** 2 * ((1 - c) / s ** 2))
+    return rot
