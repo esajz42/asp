@@ -1,4 +1,5 @@
 import numpy as np
+from asp.math import intersect, inside
 
 
 def snapshot(camera, triangles):

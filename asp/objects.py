@@ -1,4 +1,5 @@
 import numpy as np
+from asp.math import rotation_matrix, rotate
 
 
 class Point(object):
