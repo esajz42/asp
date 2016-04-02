@@ -152,13 +152,17 @@ def rotation_matrix(a, b):
     rot : array, (3, 3)
         Matrix that rotates a onto b.
 
+    Notes
+    -----
+    Assumes both Vector xyz's (locations) are at origin (0, 0, 0).
+
     References
     ----------
     .. [1] http://math.stackexchange.com/questions/180418/calculate-rotation-matrix-to-align-vector-a-to-vector-b-in-3d 
     """
     # Make sure a and b vectors are unit
-    a /= np.linalg.norm(a.xyz)
-    b /= np.linalg.norm(b.xyz)
+    a = a / np.linalg.norm(a.dir)
+    b = b / np.linalg.norm(b.dir)
 
     # Find sin and cos of angle to rotate by
     v = np.cross(a, b) 
@@ -171,3 +175,22 @@ def rotation_matrix(a, b):
     # Construct rotation matrix
     rot = np.eye(3) + vx + (vx ** 2 * ((1 - c) / s ** 2))
     return rot
+
+
+def rotate(vector, matrix):
+    """Rotate a Vector with a rotation matrix.
+
+    Parameters
+    ----------
+    vector : Vector
+        A vector to rotate.
+    matrix : array_like, (3, 3)
+        A rotation matrix used to rotate input vector.
+
+    Returns
+    -------
+    Vector
+        Rotated input vector.
+    """
+    vector.dir = np.dot(vector.dir, matrix)
+    return vector
