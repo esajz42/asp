@@ -18,5 +18,12 @@ def snapshot(camera, triangles):
     """
 
     # Intersect camera rays with scene triangles 
-    for ray in camera.rays:
-        pass
+    image = []
+    for ray in camera.rays():
+        for triangle in triangles:
+            interection_point = intersect(ray, triangle)
+            if inside(intersection_point, triangle):
+                image.append(1)
+            else:
+                image.append(0)
+    return np.asarray(image).reshape(camera.array_size)
