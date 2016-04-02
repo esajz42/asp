@@ -271,3 +271,21 @@ class Camera(object):
         self.focal = focal
         self.array_size = array_size
         self.pixel_size = pixel_size
+        
+    def rays(self):
+        """Returns list of rays, one for each camera pixel."""
+
+        # Define detector coordinates and a ray for each detector pixel
+        x_size = self.array_size[0] * self.pixel_size[0]
+        y_size = self.array_size[1] * self.pixel_size[1]
+        x = np.arange(-x_size / 2., x_size / 2, self.pixel_size[0])
+        y = np.arange(-y_size / 2., y_size / 2, self.pixel_size[1])
+        X, Y, Z = np.meshgrid(x, y, self.focal)
+        XYZ = [X.ravel(), Y.ravel(), Z.ravel()]
+        ray_list = [Ray(xyz=self.orient.xyz, point=xyz) for xyz in XYZ]
+
+        # Rotate pixel rays according to camera pointing direction
+        rot = rotation_matrix(Vector([0, 0, 0], [0, 0, 1]), Vector([0, 0, 0], self.orient.point))
+        ray_list = [rotate(ray, rot) for ray in ray_list]
+
+        return ray_list
